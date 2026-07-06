@@ -45,7 +45,7 @@ export function BottomBar() {
 
   return (
     <nav
-      className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white dark:bg-navy border-t border-gray-bg dark:border-foreground/10"
+      className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white dark:bg-navy border-t border-foreground/10"
       /* Safe-area inset for devices with home indicators (iOS, some Android) */
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >

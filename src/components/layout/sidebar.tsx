@@ -50,13 +50,13 @@ export function Sidebar() {
   const activeId = useScrollSpy(sectionIds);
 
   return (
-    <aside className="hidden lg:flex lg:fixed lg:inset-y-0 lg:left-0 lg:w-64 lg:flex-col bg-white dark:bg-navy border-r border-gray-bg dark:border-foreground/10">
+    <aside className="hidden lg:flex lg:fixed lg:inset-y-0 lg:left-0 lg:w-64 lg:flex-col bg-white dark:bg-navy border-r border-foreground/10">
       {/* Profile/branding area */}
-      <div className="p-6 border-b border-gray-bg dark:border-foreground/10 flex flex-col items-center gap-4">
+      <div className="p-6 border-b border-foreground/10 flex flex-col items-center gap-4">
         {/* Avatar — shows profile.jpg or initials fallback, never a broken icon */}
         <ProfileAvatar name={SITE_META.name} size={80} />
         <div className="text-center">
-          <h2 className="font-heading text-lg font-bold text-navy dark:text-gray-bg leading-tight">
+          <h2 className="font-heading text-lg font-bold text-foreground leading-tight">
             {SITE_META.name}
           </h2>
           <p className="text-sm text-foreground/60 mt-1">
@@ -98,7 +98,7 @@ export function Sidebar() {
       </nav>
 
       {/* Theme toggle — bottom of sidebar */}
-      <div className="p-4 border-t border-gray-bg dark:border-foreground/10">
+      <div className="p-4 border-t border-foreground/10">
         <ThemeToggle />
       </div>
     </aside>

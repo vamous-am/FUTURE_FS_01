@@ -1,6 +1,15 @@
 @import "tailwindcss";
 
 /*
+ * Tell Tailwind v4 to use the `.dark` class strategy for dark mode,
+ * matching next-themes which toggles a `dark` class on <html>.
+ * Without this, Tailwind's `dark:` variant uses prefers-color-scheme
+ * (OS-level), so the theme toggle button would have no effect on
+ * dark: utilities like dark:bg-navy, dark:text-gray-bg, etc.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
  * ─── DESIGN TOKENS ───────────────────────────────────────────────────────────
  *
  * Tailwind v4 uses a CSS-first config via @theme. All locked design tokens from
@@ -97,5 +106,82 @@ h1, h2, h3, h4, h5, h6 {
   outline: 2px solid #87BEEB;
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/*
+ * ─── MARQUEE KEYFRAMES ───────────────────────────────────────────────────────
+ *
+ * Pure CSS animations — no JavaScript scroll loops.
+ * This keeps the marquee off the main thread and preserves Lighthouse scores.
+ *
+ * Two directions:
+ *   marquee-left  — web stack row, scrolls toward the left (standard ticker).
+ *   marquee-right — ECE stack row, scrolls toward the right (reversed).
+ *
+ * Duration is set per-element via a CSS custom property (--marquee-duration)
+ * so the Marquee component can control speed without touching the keyframe.
+ *
+ * prefers-reduced-motion: animations are paused entirely — the track still
+ * renders but stays stationary, so content is visible without motion.
+ */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.marquee-track {
+  animation: marquee-left var(--marquee-duration, 40s) linear infinite;
+}
+
+.marquee-track-reverse {
+  animation: marquee-right var(--marquee-duration, 40s) linear infinite;
+}
+
+/*
+ * Pause on hover — gives users a moment to read an item if they want to.
+ * The outer .marquee-wrapper triggers the pause so moving the mouse anywhere
+ * over the strip (including the gap between items) counts.
+ */
+.marquee-wrapper:hover .marquee-track,
+.marquee-wrapper:hover .marquee-track-reverse {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .marquee-track-reverse {
+    animation-play-state: paused;
+  }
+}
+
+/*
+ * ─── TYPING CURSOR ───────────────────────────────────────────────────────────
+ * Blinking | cursor for the TypingCarousel component.
+ * prefers-reduced-motion: cursor stays visible but stops blinking.
+ */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.typing-cursor {
+  display: inline-block;
+  margin-left: 1px;
+  color: #87BEEB; /* primary token — hardcoded here because @theme vars aren't
+                     accessible inside keyframe/animation selectors in all browsers */
+  animation: cursor-blink 0.9s step-start infinite;
+  font-weight: 300;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-cursor {
+    animation: none;
+    opacity: 1;
+  }
 }
 
