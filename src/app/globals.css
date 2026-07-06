@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
+/*
+ * ─── DESIGN TOKENS ───────────────────────────────────────────────────────────
+ *
+ * Tailwind v4 uses a CSS-first config via @theme. All locked design tokens from
+ * AGENTS.md and portfolio_master_plan.md Section 1 are registered here.
+ * Never add ad-hoc colors, font sizes, or spacing values outside this block.
+ *
+ * Font CSS variables (--font-inter, --font-space-grotesk) are injected by
+ * next/font in layout.tsx and referenced here — not hardcoded strings.
+ */
+@theme {
+  /* ── Colors ── */
+  --color-primary:   #87BEEB; /* sky blue  — buttons, links, active states, accents only */
+  --color-navy:      #1A2A40; /* dark navy — headers, dark-mode bg, high-contrast text   */
+  --color-gray-bg:   #F5F7FA; /* light gray — light-mode page background                 */
+  --color-white:     #FFFFFF; /* pure white — cards, surfaces                            */
+
+  /* Semantic aliases so Tailwind classes like bg-background / text-foreground work */
+  --color-background:  var(--background);
+  --color-foreground:  var(--foreground);
+
+  /* ── Typography ── */
+  --font-sans:    var(--font-inter);           /* body copy  */
+  --font-heading: var(--font-space-grotesk);   /* all headings */
+
+  /*
+   * Fixed type scale — only these sizes are permitted across the project.
+   * text-sm / text-base / text-lg / text-2xl / text-4xl / text-6xl
+   * Tailwind's defaults already cover these, so no overrides needed here.
+   * They're documented as a reminder: do NOT add text-[19px] or similar.
+   */
+
+  /* ── Border radius ── */
+  --radius-sm:  4px;   /* tight UI elements  */
+  --radius-md:  8px;   /* buttons, inputs     */
+  --radius-lg:  12px;  /* cards (canonical)   */
+  --radius-xl:  16px;  /* modals, large panels */
+  --radius-full: 9999px; /* pills, avatars     */
+}
+
+/*
+ * ─── SEMANTIC COLOR VARIABLES ────────────────────────────────────────────────
+ *
+ * Light-mode values are the default (light-first per master plan).
+ * Dark mode flips only what changes — navy bg, near-white text.
+ * The `dark` class is applied to <html> by next-themes (class strategy).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F5F7FA; /* gray-bg */
+  --foreground: #1A2A40; /* navy    */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #1A2A40; /* navy    */
+  --foreground: #F5F7FA; /* gray-bg */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+ * ─── BASE STYLES ─────────────────────────────────────────────────────────────
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Smooth theme transition — background and color animate when .dark toggles */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Prevent layout shift from scrollbar appearing/disappearing */
+  scrollbar-gutter: stable;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Body copy uses Inter; headings override with Space Grotesk via font-heading */
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
 }
+
+/* Apply Space Grotesk to all heading levels */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+}
+
+/*
+ * ─── FOCUS VISIBLE ───────────────────────────────────────────────────────────
+ * Accessible keyboard focus ring using the primary accent color.
+ * Phase 8 will do a full a11y pass; this baseline prevents invisible focus now.
+ */
+:focus-visible {
+  outline: 2px solid #87BEEB;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
