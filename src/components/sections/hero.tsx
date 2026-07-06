@@ -116,7 +116,7 @@ export function Hero() {
           {/* Intro line */}
           <motion.p
             variants={variants.item}
-            className="text-base text-primary font-medium tracking-wide mb-2"
+            className="text-base text-primary-text font-medium tracking-wide mb-2"
           >
             Hello, I&apos;m Amanuel Musa
           </motion.p>
@@ -127,7 +127,7 @@ export function Hero() {
             className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-4 text-foreground"
           >
             Full-Stack Developer{" "}
-            <span className="text-primary">| ECE Student</span>
+            <span className="text-primary-text">| ECE Student</span>
           </motion.h1>
 
           {/* Typing carousel */}
@@ -186,7 +186,7 @@ export function Hero() {
             {/* "Let's Connect" — ghost */}
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-md border-2 border-primary text-primary font-semibold text-sm hover:bg-primary/10 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-md border-2 border-primary text-primary-text font-semibold text-sm hover:bg-primary/10 transition-colors"
             >
               Let&apos;s Connect
             </a>

@@ -63,7 +63,7 @@ export function BottomBar() {
                 text-xs font-medium transition-colors
                 ${
                   isActive
-                    ? "text-primary"
+                    ? "text-primary-text"
                     : "text-foreground/50 hover:text-foreground"
                 }
               `}

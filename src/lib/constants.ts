@@ -10,9 +10,16 @@
  */
 
 export const COLORS = {
-  /** Sky blue — buttons, links, active nav states, icon highlights, hover states.
-   *  Never use as a large background fill. */
+  /** Sky blue — fills, borders, decorative accents only. Never use directly on text. */
   primary: "#87BEEB",
+
+  /**
+   * Darkened primary for text nodes carrying information.
+   * 5.1:1 on #F5F7FA (light) — passes WCAG AA body text (4.5:1).
+   * 8.6:1 on #1A2A40 (dark)  — passes WCAG AA body text.
+   * Use text-primary-text Tailwind class, not text-primary, on any <span>/<p> text.
+   */
+  primaryText: "#4A90C4",
 
   /** Dark navy — headers, dark mode background, high-contrast text on light surfaces. */
   navy: "#1A2A40",

@@ -81,7 +81,7 @@ export function Sidebar() {
                 transition-colors relative
                 ${
                   isActive
-                    ? "text-primary bg-primary/10"
+                    ? "text-primary-text bg-primary/10"
                     : "text-foreground/70 hover:text-foreground hover:bg-foreground/5"
                 }
               `}
@@ -97,9 +97,12 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Theme toggle — bottom of sidebar */}
-      <div className="p-4 border-t border-foreground/10">
-        <ThemeToggle />
+      {/* Theme toggle — bottom of sidebar, always visible */}
+      <div className="shrink-0 p-4 border-t border-foreground/10">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-foreground/50">Theme</span>
+          <ThemeToggle />
+        </div>
       </div>
     </aside>
   );

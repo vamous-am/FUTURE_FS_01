@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { Sidebar } from "@/components/layout/sidebar";
 import { BottomBar } from "@/components/layout/bottom-bar";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import "./globals.css";
 
 /*
@@ -72,6 +73,30 @@ export default function RootLayout({
            *     last section clear of the bar.
            */}
           <Sidebar />
+
+          {/*
+           * Mobile floating theme toggle — visible only below lg: breakpoint.
+           * Positioned top-right, above all content (z-50).
+           *
+           * Safe-area inset: uses CSS env(safe-area-inset-top) so it clears
+           * the notch/Dynamic Island/status bar on iOS and Android devices
+           * rather than sitting a flat 1rem from the physical top edge.
+           *
+           * The backdrop-blur + subtle border gives it the frosted-glass FAB
+           * look native to iOS/Android system UIs — visually separates it from
+           * page content without an opaque background block.
+           *
+           * On desktop (lg+) this div is hidden — the sidebar toggle takes over.
+           */}
+          <div
+            className="lg:hidden fixed right-4 z-50"
+            style={{ top: "calc(env(safe-area-inset-top) + 1rem)" }}
+          >
+            <div className="p-1 rounded-full bg-white/80 dark:bg-navy/80 backdrop-blur-md border border-foreground/10 shadow-sm">
+              <ThemeToggle />
+            </div>
+          </div>
+
           <div className="lg:pl-64 pb-16 lg:pb-0">
             {children}
           </div>
