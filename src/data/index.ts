@@ -7,7 +7,7 @@
  *  - Types are imported from src/types/index.ts — not re-declared inline.
  */
 
-import type { BioData, Competency, TechCategory } from "@/types";
+import type { BioData, Competency, TechCategory, Project } from "@/types";
 
 // ── Bio ───────────────────────────────────────────────────────────────────────
 
@@ -111,10 +111,59 @@ export const TECH_CATEGORIES: TechCategory[] = [
     category: "Engineering Tools",
     icon: "Home",
     items: [
-      { name: "Linux" },
+      { name: "LOGISM" },
+      { name: "CISCO"},
+      { name :"ALTIUM"},
       { name: "MATLAB" },
       { name: "Proteus" },
       { name: "VS Code" },
     ],
+  },
+];
+
+// ── Projects ──────────────────────────────────────────────────────────────────
+
+/**
+ * PROJECT_ITEMS — three entries for visual grid symmetry.
+ *
+ * Grid layout on desktop (md:grid-cols-2):
+ *   Row 1: SaporiVivi spans both columns (featured: true → md:col-span-2).
+ *   Row 2: Two placeholder cards sit side-by-side, filling the grid evenly.
+ *
+ * Screenshot: drop a real screenshot at public/images/projects/saporivivi.png
+ * and it will appear automatically. ProjectCard renders a muted fallback panel
+ * if the file is missing — no broken image icon.
+ *
+ * NO database, ORM, or backend imports here — purely descriptive metadata.
+ */
+export const PROJECT_ITEMS: Project[] = [
+  {
+    id:          "saporivivi",
+    title:       "SaporiVivi",
+    featured:    true,
+    description:
+      "Problem: Coordinating real-time multi-vendor orders required a schema that could track order state across multiple vendors simultaneously without race conditions or orphaned records. " +
+      "Solution: Built a full-stack restaurant management platform with React, Node.js, Express, and a custom Sequelize-managed relational schema. Secured all sessions with JWT stored inside HttpOnly cookies to eliminate XSS attack surface, and built a Cloudinary image pipeline for vendor menu assets with automatic format optimisation. " +
+      "Result: Production-grade deployment with a clean security posture, sub-200 ms API response times on the critical order-status endpoint, and a normalised schema that supports adding new vendors without schema migrations.",
+    techStack:   ["React", "Node.js", "Express", "Sequelize", "PostgreSQL", "JWT", "Cloudinary", "REST API"],
+    imageUrl:    "/images/projects/saporivivi.png",
+    imageAlt:
+      "SaporiVivi restaurant management dashboard showing the multi-vendor order tracking interface with a sidebar of active orders and a central status timeline.",
+    githubUrl:   "https://github.com/vamous-am/vamous-food-delivery-db-system",
+    liveUrl:     undefined, // add once deployed
+  },
+  {
+    id:            "placeholder-engineering",
+    title:         "Project coming soon",
+    isPlaceholder: true,
+    description:
+      "Under construction. A custom engineering or full-stack software utility is scheduled for this slot.",
+  },
+  {
+    id:            "placeholder-embedded",
+    title:         "Project coming soon",
+    isPlaceholder: true,
+    description:
+      "Under construction. A custom embedded systems or hardware-adjacent software utility is scheduled for this slot.",
   },
 ];

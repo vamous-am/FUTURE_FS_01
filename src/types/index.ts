@@ -49,3 +49,40 @@ export interface TechCategory {
   /** Technologies listed inside this category card. */
   items: TechItem[];
 }
+
+// ── Projects ──────────────────────────────────────────────────────────────────
+
+export interface Project {
+  /** Unique slug — used as React key and future routing anchor. */
+  id: string;
+  title: string;
+  /** Problem/Solution/Result styled narrative — rendered as body text. */
+  description: string;
+  /** Tech badge labels. Optional — placeholder projects omit this. */
+  techStack?: string[];
+  /**
+   * Path to screenshot image relative to /public.
+   * Optional — placeholder projects render no image at all.
+   * If the file is missing at runtime, ProjectCard falls back to a muted panel.
+   */
+  imageUrl?: string;
+  /**
+   * Required when imageUrl is present. Must be highly descriptive for
+   * screen readers — do not use generic strings like "screenshot".
+   */
+  imageAlt?: string;
+  /** GitHub repository URL. Optional — placeholder projects omit this. */
+  githubUrl?: string;
+  /** Live deployment URL. Optional — hidden when absent. */
+  liveUrl?: string;
+  /**
+   * true → renders a dashed "under construction" card with no image or links.
+   * false/undefined → renders the full active project card.
+   */
+  isPlaceholder?: boolean;
+  /**
+   * true → card spans full grid width (md:col-span-2) at the top of the grid.
+   * Reserved for the flagship project only.
+   */
+  featured?: boolean;
+}
