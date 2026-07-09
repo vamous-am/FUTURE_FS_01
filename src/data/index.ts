@@ -7,7 +7,16 @@
  *  - Types are imported from src/types/index.ts — not re-declared inline.
  */
 
-import type { BioData, Competency, TechCategory, Project } from "@/types";
+import type {
+  BioData,
+  Competency,
+  TechCategory,
+  Project,
+  TimelineEntry,
+  EducationData,
+  Certificate,
+  CoreCompetencyTag,
+} from "@/types";
 
 // ── Bio ───────────────────────────────────────────────────────────────────────
 
@@ -83,6 +92,7 @@ export const TECH_CATEGORIES: TechCategory[] = [
     icon: "FolderOpen",
     items: [
       { name: "PostgreSQL" },
+      { name: "MySQL"},
       { name: "MongoDB" },
     ],
   },
@@ -166,4 +176,92 @@ export const PROJECT_ITEMS: Project[] = [
     description:
       "Under construction. A custom embedded systems or hardware-adjacent software utility is scheduled for this slot.",
   },
+];
+
+// ── Experience Timeline ───────────────────────────────────────────────────────
+
+/**
+ * Chronological order — most recent first (top of timeline).
+ * No invented metrics, percentages, or team sizes.
+ */
+export const TIMELINE: TimelineEntry[] = [
+  {
+    id:           "future-interns",
+    role:         "Full-Stack Intern",
+    organisation: "Future Interns",
+    period:       "2026 – Present",
+    bullets: [
+      "Building responsive portfolio interfaces using Next.js 16, Tailwind CSS v4, and TypeScript with App Router architecture.",
+      "Integrating serverless API routes for form handling and email delivery via the Resend API.",
+      "Deploying and iterating on modern web architectures with Vercel, optimising for Lighthouse performance and accessibility scores.",
+    ],
+  },
+  {
+    id:           "saporivivi",
+    role:         "Full-Stack Developer",
+    organisation: "SaporiVivi",
+    period:       "2025 – 2026",
+    bullets: [
+      "Designed a 16-table relational schema using Sequelize ORM to coordinate multi-vendor order state without race conditions or orphaned records.",
+      "Migrated session authentication from localStorage JWT to HttpOnly cookies, eliminating the XSS attack surface on the client.",
+      "Built a Cloudinary image pipeline for vendor menu assets, adding automatic format conversion and responsive size variants.",
+    ],
+  },
+  {
+    id:           "aait-coursework",
+    role:         "ECE Systems Coursework",
+    organisation: "Addis Ababa Institute of Technology (AAiT)",
+    period:       "2022 – Present",
+    bullets: [
+      "Studied hardware-software integration: digital logic design, microprocessor architecture, and signal processing fundamentals.",
+      "Designed embedded system logic and programmed microcontroller loops in C/C++ for sensor acquisition and actuator control.",
+      "Applied simulation tools (MATLAB, Proteus, Logism) to validate circuit behaviour and firmware correctness before physical prototyping.",
+    ],
+  },
+];
+
+// ── Education ─────────────────────────────────────────────────────────────────
+
+export const EDUCATION: EducationData = {
+  degree:              "Bachelor of Science in Electrical and Computer Engineering",
+  institution:         "Addis Ababa Institute of Technology (AAiT)",
+  expectedGraduation:  "2027",
+  description:
+    "Core curriculum spanning digital systems, microprocessor architecture, signal processing, embedded programming, and computer networks — with elective focus on software engineering and IoT applications.",
+};
+
+// ── Certificates ──────────────────────────────────────────────────────────────
+
+/**
+ * Leave as empty array until real credentials are earned.
+ * The Education section collapses to full-width when this is empty.
+ * DO NOT add placeholder or invented credentials.
+ */
+export const CERTIFICATES: Certificate[] = [
+  // e.g.:
+  // {
+  //   title:  "Full-Stack Web Development",
+  //   issuer: "Future Interns",
+  //   date:   "2026",
+  //   url:    "https://futureinterns.com/certificates/...",
+  // },
+];
+
+// ── Core Competency Tags ──────────────────────────────────────────────────────
+
+/**
+ * Technical workflow and methodology tags only.
+ * No personal buzzwords — these should describe how you work, not who you are.
+ */
+export const CORE_COMPETENCIES: CoreCompetencyTag[] = [
+  "REST API Design",
+  "Responsive Design",
+  "Git Workflow",
+  "System Design",
+  "Debugging & Profiling",
+  "Agile Methodologies",
+  "Database Schema Design",
+  "Authentication & Security",
+  "CI/CD Pipelines",
+  "Hardware-Software Integration",
 ];

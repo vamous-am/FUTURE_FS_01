@@ -50,7 +50,42 @@ export interface TechCategory {
   items: TechItem[];
 }
 
-// ── Projects ──────────────────────────────────────────────────────────────────
+// ── Experience & Education ────────────────────────────────────────────────────
+
+/** One entry on the vertical experience timeline. */
+export interface TimelineEntry {
+  id:           string;
+  role:         string;
+  organisation: string;
+  period:       string;  // e.g. "2025 – 2026"
+  /** Bullet-point accomplishments — rendered as <li> items inside the timeline card. */
+  bullets:      string[];
+}
+
+/** Education record rendered as a Card in the Education section. */
+export interface EducationData {
+  degree:      string;
+  institution: string;
+  /** Displayed as "Expected: <year>" when graduation hasn't occurred yet. */
+  expectedGraduation: string;
+  description?: string;
+}
+
+/** A certificate or credential. */
+export interface Certificate {
+  title:   string;
+  issuer:  string;
+  date:    string;   // display string, e.g. "2026"
+  url?:    string;   // optional link to credential
+}
+
+// ── Core Competencies (workflow / methodology tags) ───────────────────────────
+
+/**
+ * Flat string array — rendered as pill badges.
+ * No percentages, no personal buzzwords — technical workflow labels only.
+ */
+export type CoreCompetencyTag = string;
 
 export interface Project {
   /** Unique slug — used as React key and future routing anchor. */
