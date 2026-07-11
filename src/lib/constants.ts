@@ -80,3 +80,10 @@ export const SITE_META = {
   url: "https://future-fs-01.vercel.app", // update once deployed in Phase 9
   twitterHandle: "@amanuelm",
 } as const;
+
+export const CONTACT_INFO = {
+  email:    "amanuelmusa11@gmail.com",
+  location: "Addis Ababa, Ethiopia",
+  github:   "https://github.com/vamous-am",
+  linkedin: "https://www.linkedin.com/in/amanuel-musa-8a1b1a2b4",
+} as const;

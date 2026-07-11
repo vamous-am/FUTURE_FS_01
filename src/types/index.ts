@@ -121,3 +121,5 @@ export interface Project {
    */
   featured?: boolean;
 }
+
+export type { ContactFormData, ContactFieldErrors } from "@/lib/schemas";
