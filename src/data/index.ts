@@ -156,7 +156,7 @@ export const PROJECT_ITEMS: Project[] = [
       "Solution: Built a full-stack restaurant management platform with React, Node.js, Express, and a custom Sequelize-managed relational schema. Secured all sessions with JWT stored inside HttpOnly cookies to eliminate XSS attack surface, and built a Cloudinary image pipeline for vendor menu assets with automatic format optimisation. " +
       "Result: Production-grade deployment with a clean security posture, sub-200 ms API response times on the critical order-status endpoint, and a normalised schema that supports adding new vendors without schema migrations.",
     techStack:   ["React", "Node.js", "Express", "Sequelize", "PostgreSQL", "JWT", "Cloudinary", "REST API"],
-    imageUrl:    "/images/projects/saporivivi.png",
+    imageUrl:    "/images/projects/saporivivi.jpg",
     imageAlt:
       "SaporiVivi restaurant management dashboard showing the multi-vendor order tracking interface with a sidebar of active orders and a central status timeline.",
     githubUrl:   "https://github.com/vamous-am/vamous-food-delivery-db-system",

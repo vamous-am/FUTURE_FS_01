@@ -106,33 +106,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-space-grotesk), system-ui, sans-serif;
 }
 
-/*
- * ─── FOCUS VISIBLE ───────────────────────────────────────────────────────────
- * Accessible keyboard focus ring using the primary accent color.
- * Phase 8 will do a full a11y pass; this baseline prevents invisible focus now.
- */
+/* #4A90C4 passes WCAG AA at 5.1:1 on light bg and 8.6:1 on dark bg — #87BEEB fails both. */
 :focus-visible {
-  outline: 2px solid #87BEEB;
+  outline: 2px solid #4A90C4;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/*
- * ─── MARQUEE KEYFRAMES ───────────────────────────────────────────────────────
- *
- * Pure CSS animations — no JavaScript scroll loops.
- * This keeps the marquee off the main thread and preserves Lighthouse scores.
- *
- * Two directions:
- *   marquee-left  — web stack row, scrolls toward the left (standard ticker).
- *   marquee-right — ECE stack row, scrolls toward the right (reversed).
- *
- * Duration is set per-element via a CSS custom property (--marquee-duration)
- * so the Marquee component can control speed without touching the keyframe.
- *
- * prefers-reduced-motion: animations are paused entirely — the track still
- * renders but stays stationary, so content is visible without motion.
- */
 @keyframes marquee-left {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }

@@ -4,13 +4,9 @@ import { ThemeProvider } from "@/context/ThemeProvider";
 import { Sidebar } from "@/components/layout/sidebar";
 import { BottomBar } from "@/components/layout/bottom-bar";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
-/*
- * next/font loads both typefaces at build time — zero layout shift, no external
- * network request in the browser. The CSS variable names must match the
- * --font-inter / --font-space-grotesk references in globals.css @theme block.
- */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -24,70 +20,45 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-/*
- * Base metadata — a placeholder for now.
- * Phase 8 (SEO pass) will expand this with Open Graph, Twitter card,
- * canonical URL, and a generated OG image. Keep it minimal here.
- */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Amanuel's portifolio — Full-Stack Developer | ECE Student",
+    default: "Amanuel Musa | Full-Stack Developer & ECE Student",
     template: "%s | Amanuel Musa",
   },
   description:
-    "Personal portfolio of Amanuel Musa, an Electrical & Computer Engineering student at AAiT and full-stack web developer.",
-  // metadataBase is required for absolute OG URLs — set the real domain in Phase 8
-  metadataBase: new URL("https://future-fs-01.vercel.app"),
+    "Full-stack developer and ECE student at AAiT. Built SaporiVivi — a multi-vendor restaurant platform with a 16-table Sequelize schema, HttpOnly cookie auth, and a Cloudinary image pipeline. Proficient in Next.js, Node.js, TypeScript, PostgreSQL, and embedded systems.",
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Amanuel Musa | Full-Stack Developer & ECE Student",
+    description:
+      "Full-stack developer specializing in modern web applications and embedded engineering systems.",
+    url: SITE_URL,
+    siteName: "Amanuel Musa Portfolio",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Amanuel Musa Portfolio Preview",
+      },
+    ],
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    /*
-     * Both font CSS variables are added to <html> so they cascade to every
-     * element. `antialiased` is a Tailwind utility (font-smoothing).
-     * `h-full` on html + body ensures the layout can go full-viewport-height
-     * without extra wrapper divs in each section.
-     */
     <html
       lang="en"
-      suppressHydrationWarning /* next-themes needs this to avoid hydration mismatch */
+      suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} h-full`}
     >
       <body className="h-full antialiased">
-        {/*
-         * ThemeProvider must wrap all content here in the Server Component tree.
-         * It is a Client Component (marked "use client") so it can read/write
-         * the theme cookie and toggle the `dark` class on <html>.
-         */}
         <ThemeProvider>
-          {/*
-           * Global layout frame:
-           *   - Sidebar is fixed on the left at lg:, contributes no flow width.
-           *   - lg:pl-64 offsets the main content area by the sidebar width so
-           *     content never slides under the sidebar.
-           *   - BottomBar is fixed at the bottom on mobile; pb-16 keeps the
-           *     last section clear of the bar.
-           */}
           <Sidebar />
 
-          {/*
-           * Mobile floating theme toggle — visible only below lg: breakpoint.
-           * Positioned top-right, above all content (z-50).
-           *
-           * Safe-area inset: uses CSS env(safe-area-inset-top) so it clears
-           * the notch/Dynamic Island/status bar on iOS and Android devices
-           * rather than sitting a flat 1rem from the physical top edge.
-           *
-           * The backdrop-blur + subtle border gives it the frosted-glass FAB
-           * look native to iOS/Android system UIs — visually separates it from
-           * page content without an opaque background block.
-           *
-           * On desktop (lg+) this div is hidden — the sidebar toggle takes over.
-           */}
           <div
             className="lg:hidden fixed right-4 z-50"
             style={{ top: "calc(env(safe-area-inset-top) + 1rem)" }}

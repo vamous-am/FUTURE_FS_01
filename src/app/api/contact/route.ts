@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { contactSchema } from "@/lib/schemas";
 import { resend } from "@/lib/resend";
 
@@ -8,7 +9,7 @@ export async function POST(req: Request) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { fieldErrors: parsed.error.flatten().fieldErrors },
+      { fieldErrors: z.flattenError(parsed.error).fieldErrors },
       { status: 400 }
     );
   }

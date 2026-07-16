@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { Mail, MapPin, Loader2 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
+import { z } from "zod";
 import { CONTAINER_CLASS, SECTION_PADDING, CONTACT_INFO } from "@/lib/constants";
 import { contactSchema } from "@/lib/schemas";
 import type { ContactFieldErrors } from "@/lib/schemas";
@@ -46,12 +47,12 @@ export function Contact() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const clientValidation = contactSchema.safeParse(form);
     if (!clientValidation.success) {
-      setFieldErrors(clientValidation.error.flatten().fieldErrors);
+      setFieldErrors(z.flattenError(clientValidation.error).fieldErrors);
       return;
     }
 
@@ -202,7 +203,7 @@ export function Contact() {
                   autoComplete="name"
                   aria-describedby={fieldErrors.name ? "name-error" : undefined}
                   aria-invalid={!!fieldErrors.name}
-                  className="px-4 py-3 rounded-md text-sm bg-white dark:bg-foreground/5 border border-foreground/10 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary transition-colors"
+                  className="px-4 py-3 rounded-md text-sm bg-white dark:bg-foreground/5 border border-foreground/10 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/30 transition-colors"
                   placeholder="your name"
                 />
                 {fieldErrors.name && (
@@ -225,7 +226,7 @@ export function Contact() {
                   autoComplete="email"
                   aria-describedby={fieldErrors.email ? "email-error" : undefined}
                   aria-invalid={!!fieldErrors.email}
-                  className="px-4 py-3 rounded-md text-sm bg-white dark:bg-foreground/5 border border-foreground/10 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary transition-colors"
+                  className="px-4 py-3 rounded-md text-sm bg-white dark:bg-foreground/5 border border-foreground/10 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/30 transition-colors"
                   placeholder="name@gmail.com"
                 />
                 {fieldErrors.email && (
@@ -247,7 +248,7 @@ export function Contact() {
                   onChange={handleChange}
                   aria-describedby={fieldErrors.message ? "message-error" : undefined}
                   aria-invalid={!!fieldErrors.message}
-                  className="px-4 py-3 rounded-md text-sm bg-white dark:bg-foreground/5 border border-foreground/10 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary transition-colors resize-none"
+                  className="px-4 py-3 rounded-md text-sm bg-white dark:bg-foreground/5 border border-foreground/10 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/30 transition-colors resize-none"
                   placeholder="Tell me about your project or question..."
                 />
                 {fieldErrors.message && (

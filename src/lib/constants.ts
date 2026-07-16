@@ -77,7 +77,6 @@ export const SITE_META = {
   title: "Amanuel Musa — Full-Stack Developer | ECE Student",
   description:
     "Personal portfolio of Amanuel Musa, an Electrical & Computer Engineering student at AAiT and full-stack web developer.",
-  url: "https://future-fs-01.vercel.app", // update once deployed in Phase 9
   twitterHandle: "@amanuelm",
 } as const;
 
@@ -87,3 +86,6 @@ export const CONTACT_INFO = {
   github:   "https://github.com/vamous-am",
   linkedin: "https://www.linkedin.com/in/amanuel-musa-8a1b1a2b4",
 } as const;
+
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://future-fs-01.vercel.app";
+export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");

@@ -90,7 +90,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {!imgError ? (
             <Image
               src={project.imageUrl}
-              alt={project.imageAlt ?? project.title}
+              alt={project.imageAlt ?? project.title ?? "Project screenshot"}
               fill
               className="object-cover object-top"
               onError={() => setImgError(true)}
