@@ -1,39 +1,21 @@
-/**
- * Shared TypeScript interfaces for all data structures used across sections.
- *
- * Rule: every data shape consumed by a section component must be defined here
- * first. Components import types from here — never define inline type literals
- * inside component files for data that comes from src/data/index.ts.
- */
-
-// ── About / Bio ───────────────────────────────────────────────────────────────
+/** Shared TypeScript interfaces for all portfolio data structures.
+ *  All data shapes consumed by section components are defined here and imported from `src/data/index.ts`. */
 
 export interface BioData {
-  /** Short display name shown in section headings. */
   name: string;
-  /** One or more paragraphs of bio text. Kept as an array so components can
-   *  render each entry as its own <p> without splitting on arbitrary newlines. */
+  /** Rendered as individual `<p>` elements — one entry per paragraph. */
   paragraphs: string[];
 }
 
-// ── Competencies ──────────────────────────────────────────────────────────────
-
-/**
- * Qualitative skill level — maps to a filled-block count out of `total`.
- * We deliberately avoid percentages; these labels are meaningful and honest.
- */
+/** Qualitative skill level mapped to a filled-block count out of `total`. */
 export interface Competency {
-  /** Displayed domain name, e.g. "Frontend Experience". */
   label: string;
-  /** Qualitative descriptor shown next to the block meter, e.g. "Advanced". */
+  /** Descriptive label shown beside the block meter, e.g. "Advanced". */
   levelLabel: string;
-  /** Number of filled (highlighted) blocks — represents current level. */
+  /** Number of highlighted blocks representing the current level. */
   filled: number;
-  /** Total number of blocks in the meter (always 4 per spec). */
   total: number;
 }
-
-// ── Tech Stack ────────────────────────────────────────────────────────────────
 
 /** A single technology badge inside a category card. */
 export interface TechItem {
@@ -42,83 +24,56 @@ export interface TechItem {
 
 /** One category card in the tech grid. */
 export interface TechCategory {
-  /** Category heading, e.g. "Frontend Development". */
   category: string;
-  /** Lucide icon name string — looked up in the expertise component's icon map. */
+  /** Lucide icon name resolved via the Expertise component's icon map. */
   icon: string;
-  /** Technologies listed inside this category card. */
   items: TechItem[];
 }
 
-// ── Experience & Education ────────────────────────────────────────────────────
-
 /** One entry on the vertical experience timeline. */
 export interface TimelineEntry {
-  id:           string;
-  role:         string;
+  id: string;
+  role: string;
   organisation: string;
-  period:       string;  // e.g. "2025 – 2026"
-  /** Bullet-point accomplishments — rendered as <li> items inside the timeline card. */
-  bullets:      string[];
+  period: string;
+  bullets: string[];
 }
 
-/** Education record rendered as a Card in the Education section. */
+/** Education record rendered as a Card. */
 export interface EducationData {
-  degree:      string;
+  degree: string;
   institution: string;
-  /** Displayed as "Expected: <year>" when graduation hasn't occurred yet. */
+  /** Renders as "Expected: {year}" when graduation is pending. */
   expectedGraduation: string;
   description?: string;
 }
 
-/** A certificate or credential. */
 export interface Certificate {
-  title:   string;
-  issuer:  string;
-  date:    string;   // display string, e.g. "2026"
-  url?:    string;   // optional link to credential
+  title: string;
+  issuer: string;
+  date: string;
+  url?: string;
 }
 
-// ── Core Competencies (workflow / methodology tags) ───────────────────────────
-
-/**
- * Flat string array — rendered as pill badges.
- * No percentages, no personal buzzwords — technical workflow labels only.
- */
+/** Technical workflow tag rendered as a pill badge. */
 export type CoreCompetencyTag = string;
 
 export interface Project {
-  /** Unique slug — used as React key and future routing anchor. */
   id: string;
   title: string;
-  /** Problem/Solution/Result styled narrative — rendered as body text. */
+  /** Problem / Solution / Result narrative rendered as body text. */
   description: string;
-  /** Tech badge labels. Optional — placeholder projects omit this. */
   techStack?: string[];
-  /**
-   * Path to screenshot image relative to /public.
-   * Optional — placeholder projects render no image at all.
-   * If the file is missing at runtime, ProjectCard falls back to a muted panel.
-   */
+  /** Path relative to `/public`. Falls back to a muted panel if the file is missing. */
   imageUrl?: string;
-  /**
-   * Required when imageUrl is present. Must be highly descriptive for
-   * screen readers — do not use generic strings like "screenshot".
-   */
+  /** Required when `imageUrl` is present. Must be descriptive for screen readers. */
   imageAlt?: string;
-  /** GitHub repository URL. Optional — placeholder projects omit this. */
   githubUrl?: string;
-  /** Live deployment URL. Optional — hidden when absent. */
+  /** Live Demo button is hidden when absent — no dead links. */
   liveUrl?: string;
-  /**
-   * true → renders a dashed "under construction" card with no image or links.
-   * false/undefined → renders the full active project card.
-   */
+  /** Renders a dashed "under construction" card with no image or action buttons. */
   isPlaceholder?: boolean;
-  /**
-   * true → card spans full grid width (md:col-span-2) at the top of the grid.
-   * Reserved for the flagship project only.
-   */
+  /** Spans full grid width (`md:col-span-2`) at the top of the projects grid. */
   featured?: boolean;
 }
 

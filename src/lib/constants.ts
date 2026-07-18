@@ -1,33 +1,12 @@
-/**
- * Design token constants — single source of truth for values used in logic/data.
- *
- * These mirror the CSS custom properties defined in globals.css (@theme block).
- * Use these in TypeScript when you need a color value outside of a Tailwind class
- * (e.g. Framer Motion inline styles, canvas drawing, dynamic style objects).
- *
- * DO NOT introduce new colors, fonts, or spacing values here.
- * All additions must match AGENTS.md and portfolio_master_plan.md Section 1.
- */
-
+/** Design token values mirroring the CSS custom properties in globals.css.
+ *  Use these when a color is needed outside of a Tailwind class (e.g. Framer Motion inline styles). */
 export const COLORS = {
-  /** Sky blue — fills, borders, decorative accents only. Never use directly on text. */
+  /** Decorative accent only — never apply directly to text nodes. */
   primary: "#87BEEB",
-
-  /**
-   * Darkened primary for text nodes carrying information.
-   * 5.1:1 on #F5F7FA (light) — passes WCAG AA body text (4.5:1).
-   * 8.6:1 on #1A2A40 (dark)  — passes WCAG AA body text.
-   * Use text-primary-text Tailwind class, not text-primary, on any <span>/<p> text.
-   */
+  /** WCAG AA-compliant primary shade for text: 5.1:1 on light bg, 8.6:1 on dark bg. */
   primaryText: "#4A90C4",
-
-  /** Dark navy — headers, dark mode background, high-contrast text on light surfaces. */
   navy: "#1A2A40",
-
-  /** Light gray — light mode page background. */
   grayBg: "#F5F7FA",
-
-  /** Pure white — cards, surfaces, modal backgrounds. */
   white: "#FFFFFF",
 } as const;
 
@@ -36,42 +15,32 @@ export const FONTS = {
   body: "Inter",
 } as const;
 
-/** Shared page container class — use on every section wrapper, never invent a bespoke width. */
+/** Shared max-width container. Applied to every section wrapper for layout consistency. */
 export const CONTAINER_CLASS = "max-w-6xl mx-auto px-6" as const;
 
-/** Section vertical rhythm — apply to every full-width section root element. */
+/** Vertical section rhythm. Apply to the root element of every full-width section. */
 export const SECTION_PADDING = "py-24 md:py-16" as const;
 
-/**
- * Navigation config — single source of truth for all nav links.
- *
- * Desktop sidebar renders all 6 items (showOnMobile: true/false doesn't matter
- * for desktop). Mobile bottom bar renders only the 5 items where
- * `showOnMobile: true` — Experience is dropped on mobile per the master plan
- * because the bottom bar has 5 slots and Experience is lower priority on small
- * screens where vertical real estate is tight.
- *
- * icon: string key matching the Lucide icon name — the nav components
- * import the actual icon components and look them up by this key so this
- * file stays free of any React/JSX dependency.
- */
 export type NavItem = {
   label: string;
-  href: string;           // matches the section id, e.g. "#about" → <section id="about">
-  icon: string;           // Lucide icon name (PascalCase string key)
-  showOnMobile: boolean;  // false = desktop sidebar only
+  /** Anchor href matching a section `id`, e.g. `"#about"`. */
+  href: string;
+  /** Lucide icon name — resolved to a component via the nav icon maps. */
+  icon: string;
+  /** `false` excludes this item from the mobile bottom bar. */
+  showOnMobile: boolean;
 };
 
+/** Single source of truth for navigation order used by both Sidebar and BottomBar. */
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home",       href: "#home",       icon: "Home",       showOnMobile: true  },
-  { label: "About",      href: "#about",      icon: "User",       showOnMobile: true  },
   { label: "Projects",   href: "#projects",   icon: "FolderOpen", showOnMobile: true  },
+  { label: "About",      href: "#about",      icon: "User",       showOnMobile: true  },
   { label: "Skills",     href: "#skills",     icon: "Wrench",     showOnMobile: true  },
   { label: "Experience", href: "#experience", icon: "Briefcase",  showOnMobile: false },
   { label: "Contact",    href: "#contact",    icon: "Mail",       showOnMobile: true  },
 ] as const;
 
-/** Site metadata used in layout.tsx and later in the SEO phase. */
 export const SITE_META = {
   name: "Amanuel Musa",
   title: "Amanuel Musa — Full-Stack Developer | ECE Student",
@@ -87,5 +56,6 @@ export const CONTACT_INFO = {
   linkedin: "https://www.linkedin.com/in/amanuel-musa-8a1b1a2b4",
 } as const;
 
+/** Canonical site URL. Trailing slashes are stripped to prevent double-slash in `sitemap.xml`. */
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://future-fs-01.vercel.app";
 export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");

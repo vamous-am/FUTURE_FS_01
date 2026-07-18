@@ -1,11 +1,4 @@
-/**
- * src/data/index.ts — single source of truth for all portfolio content.
- *
- * Rules (from AGENTS.md):
- *  - No raw content may be hardcoded inside section components.
- *  - All text, skill levels, and tech items live here and are imported.
- *  - Types are imported from src/types/index.ts — not re-declared inline.
- */
+/** All portfolio content. No raw strings may be hardcoded inside section components — import from here. */
 
 import type {
   BioData,
@@ -29,17 +22,7 @@ export const BIO: BioData = {
   ],
 };
 
-// ── Qualitative Competencies ──────────────────────────────────────────────────
-
-/**
- * 4-block meter scale:
- *   4 / 4 → Advanced
- *   3 / 4 → Intermediate
- *   2 / 4 → Intermediate / Learning
- *   1 / 4 → Learning
- *
- * Levels are qualitative — not fake percentages.
- */
+/** 4-block qualitative scale: 4=Advanced, 3=Intermediate, 2=Intermediate/Learning, 1=Learning. */
 export const COMPETENCIES: Competency[] = [
   {
     label:      "Frontend Experience",
@@ -61,12 +44,7 @@ export const COMPETENCIES: Competency[] = [
   },
 ];
 
-// ── Categorised Tech Stack ────────────────────────────────────────────────────
-
-/**
- * Exactly 6 categories per the master plan spec.
- * icon: Lucide icon name — the Expertise component maps these to components.
- */
+/** 6 tech categories. `icon` is a Lucide icon name resolved via the Expertise component's icon map. */
 export const TECH_CATEGORIES: TechCategory[] = [
   {
     category: "Frontend Development",
@@ -131,21 +109,7 @@ export const TECH_CATEGORIES: TechCategory[] = [
   },
 ];
 
-// ── Projects ──────────────────────────────────────────────────────────────────
-
-/**
- * PROJECT_ITEMS — three entries for visual grid symmetry.
- *
- * Grid layout on desktop (md:grid-cols-2):
- *   Row 1: SaporiVivi spans both columns (featured: true → md:col-span-2).
- *   Row 2: Two placeholder cards sit side-by-side, filling the grid evenly.
- *
- * Screenshot: drop a real screenshot at public/images/projects/saporivivi.png
- * and it will appear automatically. ProjectCard renders a muted fallback panel
- * if the file is missing — no broken image icon.
- *
- * NO database, ORM, or backend imports here — purely descriptive metadata.
- */
+/** Featured project (`featured: true`) spans both grid columns. Placeholders fill remaining slots symmetrically. */
 export const PROJECT_ITEMS: Project[] = [
   {
     id:          "saporivivi",
@@ -160,14 +124,14 @@ export const PROJECT_ITEMS: Project[] = [
     imageAlt:
       "SaporiVivi restaurant management dashboard showing the multi-vendor order tracking interface with a sidebar of active orders and a central status timeline.",
     githubUrl:   "https://github.com/vamous-am/vamous-food-delivery-db-system",
-    liveUrl:     undefined, // add once deployed
+    liveUrl: undefined,
   },
   {
     id:            "placeholder-engineering",
     title:         "Project coming soon",
     isPlaceholder: true,
     description:
-      "Under construction. A custom engineering or full-stack software utility is scheduled for this slot.",
+      "Under construction. Lightweight CRM for capturing leads, managing pipeline stages, and staying on top of client conversations",
   },
   {
     id:            "placeholder-embedded",
@@ -178,12 +142,7 @@ export const PROJECT_ITEMS: Project[] = [
   },
 ];
 
-// ── Experience Timeline ───────────────────────────────────────────────────────
-
-/**
- * Chronological order — most recent first (top of timeline).
- * No invented metrics, percentages, or team sizes.
- */
+/** Most recent entry first. No invented metrics or team sizes. */
 export const TIMELINE: TimelineEntry[] = [
   {
     id:           "future-interns",
@@ -230,29 +189,10 @@ export const EDUCATION: EducationData = {
     "Core curriculum spanning digital systems, microprocessor architecture, signal processing, embedded programming, and computer networks — with elective focus on software engineering and IoT applications.",
 };
 
-// ── Certificates ──────────────────────────────────────────────────────────────
+/** Leave empty until real credentials are earned. The Education layout collapses to full-width when empty. */
+export const CERTIFICATES: Certificate[] = [];
 
-/**
- * Leave as empty array until real credentials are earned.
- * The Education section collapses to full-width when this is empty.
- * DO NOT add placeholder or invented credentials.
- */
-export const CERTIFICATES: Certificate[] = [
-  // e.g.:
-  // {
-  //   title:  "Full-Stack Web Development",
-  //   issuer: "Future Interns",
-  //   date:   "2026",
-  //   url:    "https://futureinterns.com/certificates/...",
-  // },
-];
-
-// ── Core Competency Tags ──────────────────────────────────────────────────────
-
-/**
- * Technical workflow and methodology tags only.
- * No personal buzzwords — these should describe how you work, not who you are.
- */
+/** Technical workflow and methodology tags rendered as pill badges. */
 export const CORE_COMPETENCIES: CoreCompetencyTag[] = [
   "REST API Design",
   "Responsive Design",

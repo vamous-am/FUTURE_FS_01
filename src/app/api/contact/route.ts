@@ -16,8 +16,7 @@ export async function POST(req: Request) {
 
   const { name, email, message, honeypot } = parsed.data;
 
-  // Bot submissions fill the honeypot field. Return a convincing 200 to avoid
-  // revealing the detection mechanism to scrapers and automated tools.
+  // Non-empty honeypot indicates a bot — return a convincing 200 without dispatching
   if (honeypot) {
     return NextResponse.json({ success: true });
   }
@@ -28,8 +27,7 @@ export async function POST(req: Request) {
       to:      "amanuelmusa11@gmail.com",
       replyTo: email,
       subject: `New portfolio message from ${name}`,
-      // Plain text prevents HTML/script injection from reaching the inbox client
-      // if a visitor pastes markup into the message field.
+      // Plain text prevents HTML/script injection if a visitor pastes markup into the message field
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
     });
 
